@@ -10,31 +10,31 @@
 	<string>IOS8SwiftPrototypeCellsTutorial</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>0B5DE09DB2E2FB7363ABEFE25201CBF9E247BD54</key>
-		<string>https://github.com/ioscreator/ioscreator.git</string>
+		<key>D46D001AC71C2C9106F9388DA440B90A8395D031</key>
+		<string>https://github.com/eunicel/scriptspeak-ios-current.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>IOS8SwiftPrototypeCellsTutorial/IOS8SwiftPrototypeCellsTutorial.xcodeproj</string>
+	<string>IOS8SwiftPrototypeCellsTutorial.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>0B5DE09DB2E2FB7363ABEFE25201CBF9E247BD54</key>
-		<string>../../..</string>
+		<key>D46D001AC71C2C9106F9388DA440B90A8395D031</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/ioscreator/ioscreator.git</string>
+	<string>https://github.com/eunicel/scriptspeak-ios-current.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>0B5DE09DB2E2FB7363ABEFE25201CBF9E247BD54</string>
+	<string>D46D001AC71C2C9106F9388DA440B90A8395D031</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0B5DE09DB2E2FB7363ABEFE25201CBF9E247BD54</string>
+			<string>D46D001AC71C2C9106F9388DA440B90A8395D031</string>
 			<key>IDESourceControlWCCName</key>
-			<string>ioscreator</string>
+			<string>scriptspeak-ios-current</string>
 		</dict>
 	</array>
 </dict>
