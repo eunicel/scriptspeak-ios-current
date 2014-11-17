@@ -9,8 +9,8 @@ import AVFoundation
 import UIKit
 
 class ViewController: UITableViewController {
-    @IBOutlet weak var footerView: UIView!
   
+    @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var textToPlayField: UITextField!
