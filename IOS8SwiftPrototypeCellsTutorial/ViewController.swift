@@ -24,8 +24,8 @@ class ViewController: UITableViewController {
         historyPhrases.append(text)
         tableView.reloadData()
     }
-  var historyPhrases = ["Hi, my name is Barbara!","Good morning","Good-bye!","I'm hungry.","Good afternoon.","Happy birthday","Yes","No","PPAT is cool","Caravan","asdf","asdfasdf","asdfasdfasdf"]
-                            
+    var historyPhrases = ["Hi, my name is Barbara!","Good morning","Good-bye!","I'm hungry.","Good afternoon.","Happy birthday","Yes","No","PPAT is cool","Caravan","asdf","asdfasdf","asdfasdfasdf"]
+    var favoritePhrases = ["Favorite phrases", "helloooooo"]
 
     @IBOutlet var tapDictationItem: UITapGestureRecognizer!
   override func viewDidLoad() {

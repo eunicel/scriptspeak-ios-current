@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E6B78351A17C21D00826B0D /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E6B78341A17C21D00826B0D /* Star.png */; };
+		9EAF48CA1A1666EB0037925B /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF48C91A1666EB0037925B /* FavoriteViewController.swift */; };
 		E2E172251997C0710010AC01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E172241997C0710010AC01 /* AppDelegate.swift */; };
 		E2E172271997C0710010AC01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E172261997C0710010AC01 /* ViewController.swift */; };
 		E2E1722A1997C0710010AC01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2E172281997C0710010AC01 /* Main.storyboard */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E6B78341A17C21D00826B0D /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
+		9EAF48C91A1666EB0037925B /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		E2E1721F1997C0710010AC01 /* IOS8SwiftPrototypeCellsTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOS8SwiftPrototypeCellsTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E172231997C0710010AC01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2E172241997C0710010AC01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 			children = (
 				E2E172241997C0710010AC01 /* AppDelegate.swift */,
 				E2E172261997C0710010AC01 /* ViewController.swift */,
+				9EAF48C91A1666EB0037925B /* FavoriteViewController.swift */,
 				E2E172281997C0710010AC01 /* Main.storyboard */,
 				E2E1722B1997C0710010AC01 /* Images.xcassets */,
 				E2E1725F199A12DC0010AC01 /* Bus.png */,
@@ -109,6 +114,7 @@
 				E2E172551999F71E0010AC01 /* Motorcycle.png */,
 				E2E172571999F7410010AC01 /* Plane.png */,
 				E2E172591999F74E0010AC01 /* Train.png */,
+				9E6B78341A17C21D00826B0D /* Star.png */,
 				E2E1725B1999F7740010AC01 /* Car.png */,
 				E2E1725D199A12930010AC01 /* Scooter.png */,
 				E2E17263199A13BA0010AC01 /* Caravan.png */,
@@ -191,6 +197,7 @@
 				TargetAttributes = {
 					E2E1721E1997C0710010AC01 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = ZS8949FTCH;
 					};
 					E2E172301997C0710010AC01 = {
 						CreatedOnToolsVersion = 6.0;
@@ -223,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2E1724E1999F6A60010AC01 /* Helicopter.png in Resources */,
+				9E6B78351A17C21D00826B0D /* Star.png in Resources */,
 				E2E17264199A13BA0010AC01 /* Caravan.png in Resources */,
 				E2E172541999F7050010AC01 /* Bicycle.png in Resources */,
 				E2E172561999F71E0010AC01 /* Motorcycle.png in Resources */,
@@ -253,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2E172271997C0710010AC01 /* ViewController.swift in Sources */,
+				9EAF48CA1A1666EB0037925B /* FavoriteViewController.swift in Sources */,
 				E2E172251997C0710010AC01 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,9 +378,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IOS8SwiftPrototypeCellsTutorial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -381,9 +393,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IOS8SwiftPrototypeCellsTutorial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
