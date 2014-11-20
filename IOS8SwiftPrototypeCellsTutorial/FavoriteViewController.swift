@@ -78,11 +78,9 @@ class FavoriteViewController: UITableViewController {
             var mySpeechUtterance = AVSpeechUtterance(string:text)
             mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
             synthesizer.speakUtterance(mySpeechUtterance)
-//            historyPhrases.append(text);
             favoritePhrases.append(text);
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
-//            defaults.setObject(historyPhrases, forKey:"historyDictations")
             defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
             
             defaults.synchronize()
@@ -176,17 +174,7 @@ class FavoriteViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("dictationCell") as UITableViewCell;
         println(cell)
         
-        
-        /*
-        if(cell.detailTextLabel != nil){
-        println(cell);
-        cell = UITableView(style:UITableViewCellStyle.Default),resuseIdentifier: "dictationCell");
-        }
-        
-        */
-        
         var cellLabel:UILabel = cell.viewWithTag(50) as UILabel;
-        
         cellLabel.text = favoritePhrases[indexPath.row];
         
         var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
@@ -227,6 +215,39 @@ class FavoriteViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+    
+    //code for the save button on the text field..not tested yet
+    @IBAction func favoriteTextInput(sender: UIButton) {
+        
+        let text = textToPlayField.text;
+        if (text != "") {
+            favoritePhrases.append(text);
+            
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            
+            if let array : AnyObject? = defaults.objectForKey("historyDictations") as? [NSString]{
+                println(array);
+                var history :[NSString] = array! as [NSString]
+                history.append(text)
+                defaults.setObject(history, forKey: "historyDictations")
+            }
+            
+            defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+            
+            defaults.synchronize()
+            tableView.reloadData()
+            textToPlayField.text = "";
+        }
+        //what do we do conceptually about changing to filled star?
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     /*

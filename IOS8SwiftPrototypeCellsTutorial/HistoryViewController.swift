@@ -105,9 +105,9 @@ class HistoryViewController: UITableViewController {
     favButton?.addTarget(self, action: "favItem:", forControlEvents: UIControlEvents.TouchDown);
     favButton?.setImage(UIImage(named:"star-filled.png"), forState: UIControlState.Highlighted); //should change image of star to filled star when pressed
     
-    }
     return cell
   }
+    
     //to make sure text labels will wrap
     //how to get cell.cellLabel.preferred...cell.cellLabel.frame..... from this method???
 //    override func viewDidLayoutSubviews() {
@@ -169,6 +169,34 @@ class HistoryViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+    
+    //saves the text to favorites and clears it from the text field..not tested yet
+    @IBAction func favoriteTextInput(sender: AnyObject) {
+        let text = textToPlayField.text
+        if(text != ""){
+            historyPhrases.append(text) //TODO: needs to be with a star
+            
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            
+            //add to fav list
+            if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [NSString]{
+                println(array);
+                var favorites :[NSString] = array! as [NSString]
+                favorites.append(text)
+                defaults.setObject(favorites, forKey: "favoriteDictations")
+            }
+            
+            defaults.setObject(historyPhrases, forKey: "historyDictations")
+            defaults.synchronize()
+            
+            tableView.reloadData()
+            textToPlayField.text = ""
+        }
+    }
+    
+    
+    
+    
   
     /*
 

@@ -47,6 +47,9 @@
                                     <state key="normal" image="star-empty.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="favoriteTextInput:" destination="Gvl-ii-4uU" eventType="touchDown" id="Iqo-aS-0w9"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -219,6 +222,9 @@
                                             <exclude reference="RYr-sn-jj7"/>
                                         </mask>
                                     </variation>
+                                    <connections>
+                                        <action selector="favoriteTextInput:" destination="3km-Gz-AsR" eventType="touchDown" id="LEJ-bK-EfA"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -343,7 +349,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v07-7S-nV8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="214" y="2123"/>
+            <point key="canvasLocation" x="458" y="2099"/>
         </scene>
     </scenes>
     <resources>
