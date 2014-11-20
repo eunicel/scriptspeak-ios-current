@@ -8,31 +8,50 @@
 import AVFoundation
 import UIKit
 
-class ViewController: UITableViewController {
+class HistoryViewController: UITableViewController {
   
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var textToPlayField: UITextField!
-    
-    @IBAction func playText(sender: UIButton) {
-        let text = textToPlayField.text
-        var synthesizer = AVSpeechSynthesizer()
-        var mySpeechUtterance = AVSpeechUtterance(string:text)
-        mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
-        synthesizer.speakUtterance(mySpeechUtterance)
-        historyPhrases.append(text)
-        tableView.reloadData()
-    }
-    var historyPhrases = ["Hi, my name is Barbara!","Good morning","Good-bye!","I'm hungry.","Good afternoon.","Happy birthday","Yes","No","PPAT is cool","Caravan","asdf","asdfasdf","asdfasdfasdf"]
-    var favoritePhrases = ["Favorite phrases", "helloooooo"]
 
+    
+    var historyPhrases :[NSString] = ["Hi, my name is Barbara!","Good morning","Good-bye!","I'm hungry.","Good afternoon.","Happy birthday","Yes","No","PPAT is cool","Caravan","asdf","asdfasdf","asdfasdfasdf"]
+
+    @IBOutlet weak var textToPlayField: UITextField!
     @IBOutlet var tapDictationItem: UITapGestureRecognizer!
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-    tableView.frame = self.view.frame;
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        tableView.frame = self.view.frame;
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        //read
+        if let array : AnyObject? = defaults.objectForKey("historyDictations") {
+            println(array);
+            if(array != nil){
+                historyPhrases = array! as [NSString];
+            }
+        }
+    }
+    
+    @IBAction func playText(sender: AnyObject) {
+        println("happy")
+        let text = textToPlayField.text
+        if(text != ""){
+            var synthesizer = AVSpeechSynthesizer()
+            var mySpeechUtterance = AVSpeechUtterance(string:text)
+            mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
+            synthesizer.speakUtterance(mySpeechUtterance)
+            historyPhrases.append(text)
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            
+            defaults.setObject(historyPhrases, forKey: "historyDictations")
+            println("happy")
+            defaults.synchronize()
+            
+            tableView.reloadData()
+            textToPlayField.text = ""
+        }
+    }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -50,24 +69,72 @@ class ViewController: UITableViewController {
   }
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let text = historyPhrases[indexPath.row]
+    println(indexPath.row);
     var synthesizer = AVSpeechSynthesizer()
+    
     var mySpeechUtterance = AVSpeechUtterance(string:text)
+    println(text);
+    println(historyPhrases);
     mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate;
     synthesizer.speakUtterance(mySpeechUtterance)
   }
     
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    var cell = tableView.dequeueReusableCellWithIdentifier("dictationCell") as? UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("dictationCell") as UITableViewCell;
+    println(cell)
     
-    cell?.textLabel.text = historyPhrases[indexPath.row]
+    var cellLabel:UILabel = cell.viewWithTag(50) as UILabel;
     
-    var imageName = UIImage(named: historyPhrases[indexPath.row])
-    cell?.imageView.image = imageName
+    cellLabel.text = historyPhrases[indexPath.row];
+    var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
     
-    return cell!
+    deleteButton?.addTarget(self, action: "deleteItem:", forControlEvents: UIControlEvents.TouchDown);
+    
+    var favButton:UIButton? = self.view.viewWithTag(52) as? UIButton;
+    
+    favButton?.addTarget(self, action: "favItem:", forControlEvents: UIControlEvents.TouchDown);
+    return cell
   }
+    func deleteItem(sender: AnyObject){
+        var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
+        println("delete");
+        var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
+        if (indexPath != nil)
+        {
+            var currentIndex = indexPath?.row;
+            historyPhrases.removeAtIndex(currentIndex!);
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(historyPhrases, forKey: "historyDictations")
+            tableView.reloadData()
+        }
+    }
+    func favItem(sender: AnyObject){
+        var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
+        println("favorite");
+        var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
+        if (indexPath != nil)
+        {
+            var currentIndex = indexPath?.row;
+            
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(historyPhrases, forKey: "historyDictations")
+         
+            
+            if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [NSString]{
+                println(array);
+                if(array != nil){
+                    var favorites :[NSString] = array! as [NSString];
+                    favorites.append(historyPhrases[currentIndex!]);
+                    defaults.setObject(favorites, forKey: "favoriteDictations")
+                }else{
+                    defaults.setObject([historyPhrases[currentIndex!]], forKey: "favoriteDictations")
 
+                }
+            }
+            tableView.reloadData()
+        }
+    }
   
     /*
 

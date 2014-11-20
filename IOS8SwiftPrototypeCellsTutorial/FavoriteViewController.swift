@@ -12,7 +12,7 @@ class FavoriteViewController: UITableViewController {
 
     @IBOutlet weak var favoriteItem: UITabBarItem!
     @IBOutlet weak var footerView: UIView!
-    
+
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var textToPlayField: UITextField!
@@ -48,29 +48,64 @@ class FavoriteViewController: UITableViewController {
         // Present the controller
         presentViewController(alertController, animated: true, completion: nil)
     }
-    func fileNameEntered(aler:UIAlertAction!){
+    
+    func deleteButtonClicked(sender: UIBarButtonItem) {
+        // Create the alert controller
+        let alertController = UIAlertController(title: "Delete Item:",message:"",preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil);// DeleteEntered);
+        
+        let cancelAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil);
+        
+        // Add the actions
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the controller
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func fileNameEntered(alert:UIAlertAction!){
         
     }
     
     @IBAction func playText(sender: UIButton) {
-        let text = textToPlayField.text
-        var synthesizer = AVSpeechSynthesizer()
-        var mySpeechUtterance = AVSpeechUtterance(string:text)
-        mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
-        synthesizer.speakUtterance(mySpeechUtterance)
-        favoritePhrases.append(text)
-        tableView.reloadData()
+        let text = textToPlayField.text;
+        if(text != ""){
+            var synthesizer = AVSpeechSynthesizer()
+            var mySpeechUtterance = AVSpeechUtterance(string:text)
+            mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
+            synthesizer.speakUtterance(mySpeechUtterance)
+            favoritePhrases.append(text);
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            
+            defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+            
+            defaults.synchronize()
+            
+            tableView.reloadData()
+            textToPlayField.text = "";
+        }
+        
     }
 
-    var favoritePhrases = ["Favorite phrases", "helloooooo"]
+    var favoritePhrases:[NSString] = [];
 
     @IBOutlet var tapDictationItem: UITapGestureRecognizer!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.frame = self.view.frame;
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        //read
+        defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+        if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [NSString]{
+            favoritePhrases = array! as [NSString]
+        }
+
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,8 +114,9 @@ class FavoriteViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoritePhrases.count
     }
+
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return footerView.frame.size.height; // UITabBarItem height is 30
+        return footerView.frame.size.height;
     }
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return footerView
@@ -96,14 +132,57 @@ class FavoriteViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("dictationCell") as? UITableViewCell
         
-        cell?.textLabel.text = favoritePhrases[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("dictationCell") as UITableViewCell;
+        println(cell)
         
-        var imageName = UIImage(named: favoritePhrases[indexPath.row])
-        cell?.imageView.image = imageName
         
-        return cell!
+        /*
+        if(cell.detailTextLabel != nil){
+        println(cell);
+        cell = UITableView(style:UITableViewCellStyle.Default),resuseIdentifier: "dictationCell");
+        }
+        
+        */
+        
+        var cellLabel:UILabel = cell.viewWithTag(50) as UILabel;
+        
+        cellLabel.text = favoritePhrases[indexPath.row];
+        
+        var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
+        
+        deleteButton?.addTarget(self, action: "deleteItemClicked:", forControlEvents: UIControlEvents.TouchDown);
+        
+        return cell
+    }
+
+    func deleteItemClicked(sender: AnyObject){
+        let alertController = UIAlertController(title: "Delete Item:",message:"",preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, nil);// DeleteEntered);
+        
+        let cancelAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil);
+        
+        // Add the actions
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the controller
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    func deleteItem(sender: AnyObject){
+        var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
+        println("delete");
+        var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
+        if (indexPath != nil)
+        {
+            var currentIndex = indexPath?.row;
+            favoritePhrases.removeAtIndex(currentIndex!);
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+            tableView.reloadData()
+        }
     }
     
     

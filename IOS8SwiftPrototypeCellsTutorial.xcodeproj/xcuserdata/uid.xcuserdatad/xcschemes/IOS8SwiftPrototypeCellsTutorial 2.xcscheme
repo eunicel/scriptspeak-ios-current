@@ -29,6 +29,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E2E1721E1997C0710010AC01"
+            BuildableName = "IOS8SwiftPrototypeCellsTutorial.app"
+            BlueprintName = "IOS8SwiftPrototypeCellsTutorial"
+            ReferencedContainer = "container:IOS8SwiftPrototypeCellsTutorial.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -39,7 +48,7 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E2E1721E1997C0710010AC01"
@@ -47,7 +56,7 @@
             BlueprintName = "IOS8SwiftPrototypeCellsTutorial"
             ReferencedContainer = "container:IOS8SwiftPrototypeCellsTutorial.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -57,7 +66,7 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E2E1721E1997C0710010AC01"
@@ -65,7 +74,7 @@
             BlueprintName = "IOS8SwiftPrototypeCellsTutorial"
             ReferencedContainer = "container:IOS8SwiftPrototypeCellsTutorial.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

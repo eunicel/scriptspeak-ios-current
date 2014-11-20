@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		191807C01A1D3AB800146FCC /* closeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 191807BF1A1D3AB800146FCC /* closeButton.png */; };
+		191807C21A1D824B00146FCC /* star-filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 191807C11A1D824B00146FCC /* star-filled.png */; };
+		191807C41A1D825100146FCC /* star-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 191807C31A1D825100146FCC /* star-empty.png */; };
+		19C4138A1A1AE5BC00511D9A /* DictationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C413891A1AE5BC00511D9A /* DictationTableViewCell.swift */; };
 		9E6B78351A17C21D00826B0D /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E6B78341A17C21D00826B0D /* Star.png */; };
 		9EAF48CA1A1666EB0037925B /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF48C91A1666EB0037925B /* FavoriteViewController.swift */; };
 		E2E172251997C0710010AC01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E172241997C0710010AC01 /* AppDelegate.swift */; };
-		E2E172271997C0710010AC01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E172261997C0710010AC01 /* ViewController.swift */; };
+		E2E172271997C0710010AC01 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E172261997C0710010AC01 /* HistoryViewController.swift */; };
 		E2E1722A1997C0710010AC01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2E172281997C0710010AC01 /* Main.storyboard */; };
 		E2E1722C1997C0710010AC01 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2E1722B1997C0710010AC01 /* Images.xcassets */; };
 		E2E172381997C0710010AC01 /* IOS8SwiftPrototypeCellsTutorialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E172371997C0710010AC01 /* IOS8SwiftPrototypeCellsTutorialTests.swift */; };
@@ -38,12 +42,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		191807BF1A1D3AB800146FCC /* closeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeButton.png; sourceTree = "<group>"; };
+		191807C11A1D824B00146FCC /* star-filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star-filled.png"; path = "../../../../Downloads/star-filled.png"; sourceTree = "<group>"; };
+		191807C31A1D825100146FCC /* star-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star-empty.png"; path = "../../../../Downloads/star-empty.png"; sourceTree = "<group>"; };
+		19C413891A1AE5BC00511D9A /* DictationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictationTableViewCell.swift; sourceTree = "<group>"; };
 		9E6B78341A17C21D00826B0D /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
 		9EAF48C91A1666EB0037925B /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		E2E1721F1997C0710010AC01 /* IOS8SwiftPrototypeCellsTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOS8SwiftPrototypeCellsTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E172231997C0710010AC01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2E172241997C0710010AC01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E2E172261997C0710010AC01 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = IOS8SwiftPrototypeCellsTutorial/ViewController.swift; sourceTree = SOURCE_ROOT; };
+		E2E172261997C0710010AC01 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryViewController.swift; path = IOS8SwiftPrototypeCellsTutorial/HistoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		E2E172291997C0710010AC01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E2E1722B1997C0710010AC01 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E2E172311997C0710010AC01 /* IOS8SwiftPrototypeCellsTutorialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOS8SwiftPrototypeCellsTutorialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				E2E172241997C0710010AC01 /* AppDelegate.swift */,
-				E2E172261997C0710010AC01 /* ViewController.swift */,
+				19C413891A1AE5BC00511D9A /* DictationTableViewCell.swift */,
+				E2E172261997C0710010AC01 /* HistoryViewController.swift */,
 				9EAF48C91A1666EB0037925B /* FavoriteViewController.swift */,
 				E2E172281997C0710010AC01 /* Main.storyboard */,
 				E2E1722B1997C0710010AC01 /* Images.xcassets */,
@@ -118,6 +127,9 @@
 				E2E1725B1999F7740010AC01 /* Car.png */,
 				E2E1725D199A12930010AC01 /* Scooter.png */,
 				E2E17263199A13BA0010AC01 /* Caravan.png */,
+				191807C11A1D824B00146FCC /* star-filled.png */,
+				191807C31A1D825100146FCC /* star-empty.png */,
+				191807BF1A1D3AB800146FCC /* closeButton.png */,
 				E2E172221997C0710010AC01 /* Supporting Files */,
 			);
 			path = IOS8SwiftPrototypeCellsTutorial;
@@ -233,10 +245,13 @@
 				9E6B78351A17C21D00826B0D /* Star.png in Resources */,
 				E2E17264199A13BA0010AC01 /* Caravan.png in Resources */,
 				E2E172541999F7050010AC01 /* Bicycle.png in Resources */,
+				191807C01A1D3AB800146FCC /* closeButton.png in Resources */,
 				E2E172561999F71E0010AC01 /* Motorcycle.png in Resources */,
 				E2E1725E199A12930010AC01 /* Scooter.png in Resources */,
 				E2E172581999F7410010AC01 /* Plane.png in Resources */,
 				E2E17260199A12DC0010AC01 /* Bus.png in Resources */,
+				191807C41A1D825100146FCC /* star-empty.png in Resources */,
+				191807C21A1D824B00146FCC /* star-filled.png in Resources */,
 				E2E1722A1997C0710010AC01 /* Main.storyboard in Resources */,
 				E2E1725C1999F7740010AC01 /* Car.png in Resources */,
 				E2E1722C1997C0710010AC01 /* Images.xcassets in Resources */,
@@ -260,7 +275,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2E172271997C0710010AC01 /* ViewController.swift in Sources */,
+				E2E172271997C0710010AC01 /* HistoryViewController.swift in Sources */,
+				19C4138A1A1AE5BC00511D9A /* DictationTableViewCell.swift in Sources */,
 				9EAF48CA1A1666EB0037925B /* FavoriteViewController.swift in Sources */,
 				E2E172251997C0710010AC01 /* AppDelegate.swift in Sources */,
 			);
@@ -449,7 +465,7 @@
 				E2E1723A1997C0710010AC01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		E2E1723B1997C0710010AC01 /* Build configuration list for PBXNativeTarget "IOS8SwiftPrototypeCellsTutorial" */ = {
 			isa = XCConfigurationList;
@@ -458,7 +474,7 @@
 				E2E1723D1997C0710010AC01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		E2E1723E1997C0710010AC01 /* Build configuration list for PBXNativeTarget "IOS8SwiftPrototypeCellsTutorialTests" */ = {
 			isa = XCConfigurationList;
@@ -467,7 +483,7 @@
 				E2E172401997C0710010AC01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
