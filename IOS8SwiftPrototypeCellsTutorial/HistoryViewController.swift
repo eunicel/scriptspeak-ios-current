@@ -15,7 +15,7 @@ class HistoryViewController: UITableViewController {
     @IBOutlet weak var saveButton: UIButton!
 
     
-    var historyPhrases :[NSString] = ["Hi, my name is Barbara!","Good morning","Good-bye!","I'm hungry.","Good afternoon.","Happy birthday","Yes","No","PPAT is cool","Caravan","asdf","asdfasdf","asdfasdfasdf"]
+    var historyPhrases :[NSString] = [];
 
     @IBOutlet weak var textToPlayField: UITextField!
     @IBOutlet var tapDictationItem: UITapGestureRecognizer!
@@ -34,7 +34,6 @@ class HistoryViewController: UITableViewController {
     }
     
     @IBAction func playText(sender: AnyObject) {
-        println("happy")
         let text = textToPlayField.text
         if(text != ""){
             var synthesizer = AVSpeechSynthesizer()
@@ -45,25 +44,12 @@ class HistoryViewController: UITableViewController {
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
             defaults.setObject(historyPhrases, forKey: "historyDictations")
-            println("happy")
             defaults.synchronize()
             
             tableView.reloadData()
             textToPlayField.text = ""
         }
     }
-    
- /*
-    //would be hooked up to the labels on the screen
-    @IBAction func playTextFromList(sender: AnyObject) {
-        //bascially we just shouldnt be adding to the favorites list every time we play text form the favorites list...it makes no sense
-        let text = UILabel.text //wherever the text from the label is coming from......
-        var synthesizer = AVSpeechSynthesizer()
-        
-        mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
-        synthesizer.speakUtterance(mySpeechUtterance)
-    }
-*/
     
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -171,7 +157,6 @@ class HistoryViewController: UITableViewController {
     @IBAction func favoriteTextInput(sender: AnyObject) {
         let text = textToPlayField.text
         if(text != ""){
-            historyPhrases.append(text) //TODO: needs to be with a star
             
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
@@ -183,18 +168,13 @@ class HistoryViewController: UITableViewController {
                 defaults.setObject(favorites, forKey: "favoriteDictations")
             }
             
-            defaults.setObject(historyPhrases, forKey: "historyDictations")
             defaults.synchronize()
             
             tableView.reloadData()
             textToPlayField.text = ""
         }
     }
-    
-    
-    
-    
-  
+
     /*
 
 var historyPhrases = ["Hi, my name is Barbara!","Good morning","Good-bye!","I'm hungry.","Good afternoon.","Happy birthday","Yes","No","PPAT is cool","Caravan","asdf","asdfasdf","asdfasdfasdf"]
