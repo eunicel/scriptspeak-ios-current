@@ -70,6 +70,7 @@ class FavoriteViewController: UITableViewController {
         
     }
     
+    //problem: when click play from favorites page but text button, playes, but also adds it to favorite dictations..... should add to history dictactions
     @IBAction func playText(sender: UIButton) {
         let text = textToPlayField.text;
         if(text != ""){
@@ -77,9 +78,11 @@ class FavoriteViewController: UITableViewController {
             var mySpeechUtterance = AVSpeechUtterance(string:text)
             mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
             synthesizer.speakUtterance(mySpeechUtterance)
+//            historyPhrases.append(text);
             favoritePhrases.append(text);
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
+//            defaults.setObject(historyPhrases, forKey:"historyDictations")
             defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
             
             defaults.synchronize()
@@ -89,10 +92,43 @@ class FavoriteViewController: UITableViewController {
         }
         
     }
-
-    var favoritePhrases:[NSString] = [];
+    
+    //Eventually I want this: so one play button just plays the phrase and adds it to the history list. The other just plays the phrase (like assuming its from the labels)
+/* //would be hooked up fo the input text play button
+    @IBAction func playTextFromPlayButton(sender: UIButton) {
+        let text = textToPlayField.text;
+        if(text != ""){
+            var synthesizer = AVSpeechSynthesizer()
+            var mySpeechUtterance = AVSpeechUtterance(string:text)
+            mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
+            synthesizer.speakUtterance(mySpeechUtterance)
+            historyPhrases.append(text);
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+    
+            defaults.setObject(historyPhrases, forKey:"historyDictations")
+    
+            defaults.synchronize()
+    
+            tableView.reloadData()
+            textToPlayField.text = "";
+        }
+    }
+    
+    //would be hooked up to the labels on the screen
+    @IBAction func playTextFromList(sender: AnyObject) {
+        //bascially we just shouldnt be adding to the favorites list every time we play text form the favorites list...it makes no sense
+        let text = UILabel.text //wherever the text from the label is coming from......
+        var synthesizer = AVSpeechSynthesizer()
+    
+        mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
+        synthesizer.speakUtterance(mySpeechUtterance)
+    }
+*/
+    
+    var favoritePhrases:[NSString] = ["HELLO"];
 
     @IBOutlet var tapDictationItem: UITapGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -100,7 +136,11 @@ class FavoriteViewController: UITableViewController {
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         //read
         defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+        print("favorites")
+        print(defaults)
         if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [NSString]{
+            print("array")
+            println (array)
             favoritePhrases = array! as [NSString]
         }
 
@@ -151,7 +191,8 @@ class FavoriteViewController: UITableViewController {
         
         var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
         
-        deleteButton?.addTarget(self, action: "deleteItemClicked:", forControlEvents: UIControlEvents.TouchDown);
+//        deleteButton?.addTarget(self, action: "deleteItemClicked:", forControlEvents: UIControlEvents.TouchDown);
+        deleteButton?.addTarget(self, action: "deleteItem:", forControlEvents: UIControlEvents.TouchDown);
         
         return cell
     }
@@ -171,6 +212,7 @@ class FavoriteViewController: UITableViewController {
         // Present the controller
         presentViewController(alertController, animated: true, completion: nil)
     }
+    
     func deleteItem(sender: AnyObject){
         var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
         println("delete");
@@ -181,6 +223,7 @@ class FavoriteViewController: UITableViewController {
             favoritePhrases.removeAtIndex(currentIndex!);
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+            defaults.synchronize()//may not need this one?
             tableView.reloadData()
         }
     }

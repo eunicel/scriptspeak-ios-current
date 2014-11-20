@@ -52,7 +52,19 @@ class HistoryViewController: UITableViewController {
             textToPlayField.text = ""
         }
     }
-
+    
+ /*
+    //would be hooked up to the labels on the screen
+    @IBAction func playTextFromList(sender: AnyObject) {
+        //bascially we just shouldnt be adding to the favorites list every time we play text form the favorites list...it makes no sense
+        let text = UILabel.text //wherever the text from the label is coming from......
+        var synthesizer = AVSpeechSynthesizer()
+        
+        mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
+        synthesizer.speakUtterance(mySpeechUtterance)
+    }
+*/
+    
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -82,20 +94,30 @@ class HistoryViewController: UITableViewController {
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     let cell = tableView.dequeueReusableCellWithIdentifier("dictationCell") as UITableViewCell;
-    println(cell)
-    
     var cellLabel:UILabel = cell.viewWithTag(50) as UILabel;
-    
     cellLabel.text = historyPhrases[indexPath.row];
-    var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
     
+    
+    var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
     deleteButton?.addTarget(self, action: "deleteItem:", forControlEvents: UIControlEvents.TouchDown);
     
     var favButton:UIButton? = self.view.viewWithTag(52) as? UIButton;
-    
     favButton?.addTarget(self, action: "favItem:", forControlEvents: UIControlEvents.TouchDown);
+    favButton?.setImage(UIImage(named:"star-filled.png"), forState: UIControlState.Highlighted); //should change image of star to filled star when pressed
+    
+    }
     return cell
   }
+    //to make sure text labels will wrap
+    //how to get cell.cellLabel.preferred...cell.cellLabel.frame..... from this method???
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews();
+//        
+//        self.preferredMaxLayoutWidth = self.frame.size.width;
+//        self.view.setNeedsLayout();
+//        self.view.layoutSubviews();
+//    }
+    
     func deleteItem(sender: AnyObject){
         var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
         println("delete");
@@ -106,29 +128,41 @@ class HistoryViewController: UITableViewController {
             historyPhrases.removeAtIndex(currentIndex!);
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             defaults.setObject(historyPhrases, forKey: "historyDictations")
+            defaults.synchronize()
             tableView.reloadData()
         }
     }
+    
+    //somehow the data changes arent being passed in.....idk why but defaults.synchronize is like not working or something?
+    //what happens if someone clicks the fave button twice? how do we make sure the item doesn't get added to the favorites list a second time?
     func favItem(sender: AnyObject){
+        print (sender) //is it the button that's getting sent in? or not.....
         var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
         println("favorite");
         var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
         if (indexPath != nil)
         {
             var currentIndex = indexPath?.row;
+            println( currentIndex);
             
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             defaults.setObject(historyPhrases, forKey: "historyDictations")
-         
+            print(defaults)
             
             if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [NSString]{
                 println(array);
                 if(array != nil){
-                    var favorites :[NSString] = array! as [NSString];
-                    favorites.append(historyPhrases[currentIndex!]);
+                    var favorites :[NSString] = array! as [NSString]
+                    println(favorites)
+                    favorites.append(historyPhrases[currentIndex!])
+                    println(favorites)
                     defaults.setObject(favorites, forKey: "favoriteDictations")
-                }else{
+                    defaults.synchronize()
+                    println("hello")
+                    println(defaults.objectForKey("favoriteDictations"))
+                }else{ //will never get here...empty array still goes above
                     defaults.setObject([historyPhrases[currentIndex!]], forKey: "favoriteDictations")
+                    defaults.synchronize()
 
                 }
             }
@@ -262,8 +296,6 @@ mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
 synthesizer.speakUtterance(mySpeechUtterance)
 }
 
-//history page favorite text: need to attach a star to each element that when pressed will
-//add the data to the starred page
 
 */
 
