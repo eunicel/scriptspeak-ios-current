@@ -97,13 +97,12 @@ class HistoryViewController: UITableViewController {
     var cellLabel:UILabel = cell.viewWithTag(50) as UILabel;
     cellLabel.text = historyPhrases[indexPath.row];
     
-    
+//    
     var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
     deleteButton?.addTarget(self, action: "deleteItem:", forControlEvents: UIControlEvents.TouchDown);
     
     var favButton:UIButton? = self.view.viewWithTag(52) as? UIButton;
     favButton?.addTarget(self, action: "favItem:", forControlEvents: UIControlEvents.TouchDown);
-    favButton?.setImage(UIImage(named:"star-filled.png"), forState: UIControlState.Highlighted); //should change image of star to filled star when pressed
     
     return cell
   }
@@ -136,9 +135,8 @@ class HistoryViewController: UITableViewController {
     //somehow the data changes arent being passed in.....idk why but defaults.synchronize is like not working or something?
     //what happens if someone clicks the fave button twice? how do we make sure the item doesn't get added to the favorites list a second time?
     func favItem(sender: AnyObject){
-        print (sender) //is it the button that's getting sent in? or not.....
+        sender.setImage(UIImage(named:"star-filled.png"), forState:UIControlState.Normal); //should change image of star to filled star when pressed
         var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
-        println("favorite");
         var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
         if (indexPath != nil)
         {
@@ -152,14 +150,13 @@ class HistoryViewController: UITableViewController {
             if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [NSString]{
                 println(array);
                 if(array != nil){
-                    var favorites :[NSString] = array! as [NSString]
-                    println(favorites)
+                    var favorites :[NSString] = array! as [NSString];
+                    println(favorites);
                     favorites.append(historyPhrases[currentIndex!])
-                    println(favorites)
-                    defaults.setObject(favorites, forKey: "favoriteDictations")
-                    defaults.synchronize()
-                    println("hello")
-                    println(defaults.objectForKey("favoriteDictations"))
+                    println(favorites);
+                    defaults.setObject(favorites, forKey: "favoriteDictations");
+                    defaults.synchronize();
+                    println(defaults.objectForKey("favoriteDictations"));
                 }else{ //will never get here...empty array still goes above
                     defaults.setObject([historyPhrases[currentIndex!]], forKey: "favoriteDictations")
                     defaults.synchronize()

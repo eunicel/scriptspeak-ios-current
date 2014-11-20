@@ -74,15 +74,20 @@ class FavoriteViewController: UITableViewController {
     @IBAction func playText(sender: UIButton) {
         let text = textToPlayField.text;
         if(text != ""){
+            // text-to-speech
             var synthesizer = AVSpeechSynthesizer()
             var mySpeechUtterance = AVSpeechUtterance(string:text)
             mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
             synthesizer.speakUtterance(mySpeechUtterance)
-            favoritePhrases.append(text);
+            
+            // add played phrase to history
+            //favoritePhrases.append(text);
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
-            defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
-            
+            var historyPhrases :[NSString] = [];
+            //defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+            defaults.setObject(historyPhrases, forKey: "historyDictations")
+            historyPhrases.append(text);
             defaults.synchronize()
             
             tableView.reloadData()
@@ -111,19 +116,9 @@ class FavoriteViewController: UITableViewController {
             textToPlayField.text = "";
         }
     }
-    
-    //would be hooked up to the labels on the screen
-    @IBAction func playTextFromList(sender: AnyObject) {
-        //bascially we just shouldnt be adding to the favorites list every time we play text form the favorites list...it makes no sense
-        let text = UILabel.text //wherever the text from the label is coming from......
-        var synthesizer = AVSpeechSynthesizer()
-    
-        mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate
-        synthesizer.speakUtterance(mySpeechUtterance)
-    }
 */
     
-    var favoritePhrases:[NSString] = ["HELLO"];
+    var favoritePhrases:[NSString] = [];
 
     @IBOutlet var tapDictationItem: UITapGestureRecognizer!
     
@@ -133,12 +128,9 @@ class FavoriteViewController: UITableViewController {
         tableView.frame = self.view.frame;
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         //read
-        defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
-        print("favorites")
-        print(defaults)
         if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [NSString]{
-            print("array")
-            println (array)
+            println("array");
+            println (array);
             favoritePhrases = array! as [NSString]
         }
 
@@ -200,6 +192,90 @@ class FavoriteViewController: UITableViewController {
         // Present the controller
         presentViewController(alertController, animated: true, completion: nil)
     }
+    
+//    USE FOR DELETE DIALOG (dont look at this now)s
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        
+//        var previouslySelectedCell: UITableViewCell?
+//        if checkedIndexPath != nil {
+//            previouslySelectedCell = tableView.cellForRowAtIndexPath(checkedIndexPath)
+//        }
+//        var selectedCell = tableView.cellForRowAtIndexPath(indexPath)
+//        
+//        let selectedCurrency = PortfolioCurrencyStore.sharedStore().allCurrencies[indexPath.row]
+//        
+//        if selectedCurrency.symbol != GlobalSettings.sharedStore().portfolioCurrency {
+//            
+//            // Warning : changing the portfolio currency will reset the portfolio
+//            var resetWarning = UIAlertController(title: NSLocalizedString("Currency Picker VC:AS title", comment: "Changing currency will reset portfolio"), message: nil, preferredStyle: .ActionSheet)
+//            
+//            // destructive button
+//            let resetAction = UIAlertAction(title: NSLocalizedString("Currency Picker VC:AS destructive", comment: "Destructive button title"), style: .Destructive, handler: { (action: UIAlertAction!) in
+//                
+//                // Remove checkmark from the previously marked cell
+//                previouslySelectedCell?.accessoryType = .None
+//                
+//                // Add checkmark to the selected cell
+//                selectedCell?.accessoryType = .Checkmark
+//                self.checkedIndexPath = indexPath
+//                
+//                // Animate deselection of cell
+//                self.tableView.deselectRowAtIndexPath(indexPath, animated:true)
+//                
+//                // Stock the portfolio currency as NSUserDefaults
+//                GlobalSettings.sharedStore().portfolioCurrency = selectedCurrency.symbol // link between portfolioCurrency as a String and currency.symbol as the property of a Currency instance.
+//                
+//                // Delete all items from the StockStore
+//                StockStore.sharedStore().removeAllStocks()
+//                println("StockStore : all entries were deleted")
+//                
+//                
+//                // Reload tableView
+//                self.tableView.reloadData()
+//                
+//            })
+//            
+//            // cancel button
+//            let cancelAction = UIAlertAction(title: NSLocalizedString("Currency Picker VC:AS cancel", comment: "Cancel button title"), style: .Cancel, handler:nil)
+//            
+//            resetWarning.addAction(resetAction)
+//            resetWarning.addAction(cancelAction)
+//            
+//            presentViewController(resetWarning, animated: true, completion: nil)
+//            
+//        } else {
+//            // Animate deselection of cell
+//            tableView.deselectRowAtIndexPath(indexPath, animated:true)
+//        }
+//    }
+//    
+//    
+//    
+//    
+//    
+//    @interface MyClass : … {
+//    NSIndexPath deleteIndexPath;
+//    }
+//    @end
+//    
+//    - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//    {
+//    if (editingStyle == UITableViewCellEditingStyleDelete)
+//    {
+//    deleteIndexPath = indexPath;
+//    //code for UIAlrtView
+//    // …
+//    }
+//    }
+//    
+//    - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//    {
+//    if(buttonIndex == 0)//OK button pressed
+//    {
+//    [array removeObjectAtIndex:deleteIndexPath.row];
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:deleteIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    }
+//    }
     
     func deleteItem(sender: AnyObject){
         var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);

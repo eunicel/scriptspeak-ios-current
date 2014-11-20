@@ -78,10 +78,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" tag="51" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tb9-x5-BSQ">
-                                            <rect key="frame" x="541" y="31" width="40" height="40"/>
+                                            <rect key="frame" x="541" y="30" width="40" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="Gtm-DO-g2T"/>
-                                                <constraint firstAttribute="width" constant="40" id="V8B-B2-S9I"/>
+                                                <constraint firstAttribute="width" constant="40" id="2nH-QL-4q8"/>
+                                                <constraint firstAttribute="height" constant="40" id="bdI-xC-PwT"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <state key="normal" image="close-icon.png">
@@ -91,12 +91,26 @@
                                         </button>
                                         <button opaque="NO" tag="52" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPu-xA-lVX">
                                             <rect key="frame" x="15" y="28" width="50" height="46"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="FzO-mp-sjK"/>
+                                                <constraint firstAttribute="width" constant="40" id="UJc-yB-dWK"/>
+                                                <constraint firstAttribute="width" constant="50" id="UNE-yt-oT7"/>
+                                                <constraint firstAttribute="height" constant="46" id="cgX-kh-xy4"/>
+                                                <constraint firstAttribute="width" constant="40" id="ePd-Wg-NYF"/>
+                                            </constraints>
                                             <state key="normal" image="star-empty.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="UJc-yB-dWK"/>
+                                                    <exclude reference="UNE-yt-oT7"/>
+                                                    <exclude reference="ePd-Wg-NYF"/>
+                                                </mask>
+                                            </variation>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdb-PX-qcp">
-                                            <rect key="frame" x="73" y="26" width="460" height="50"/>
+                                            <rect key="frame" x="83" y="26" width="450" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="kpg-G9-47A"/>
                                                 <constraint firstAttribute="width" constant="460" id="qoW-2u-6GB"/>
@@ -104,27 +118,34 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="qoW-2u-6GB"/>
+                                                </mask>
+                                            </variation>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="CPu-xA-lVX" firstAttribute="centerY" secondItem="Gdb-PX-qcp" secondAttribute="centerY" id="3Ai-Vi-HWj"/>
-                                        <constraint firstItem="Tb9-x5-BSQ" firstAttribute="trailing" secondItem="H4s-UO-W17" secondAttribute="trailingMargin" constant="-11" id="DAX-I7-oXG"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Tb9-x5-BSQ" secondAttribute="bottom" constant="21" id="EcK-JG-lBr"/>
                                         <constraint firstItem="Gdb-PX-qcp" firstAttribute="top" secondItem="H4s-UO-W17" secondAttribute="top" constant="26" id="Hu5-jh-H5X"/>
                                         <constraint firstItem="Gdb-PX-qcp" firstAttribute="leading" secondItem="H4s-UO-W17" secondAttribute="leadingMargin" constant="80" id="N7y-p0-lcg"/>
                                         <constraint firstItem="Gdb-PX-qcp" firstAttribute="leading" secondItem="H4s-UO-W17" secondAttribute="leadingMargin" constant="-8" id="OQ3-uq-aRo"/>
                                         <constraint firstItem="Gdb-PX-qcp" firstAttribute="leading" secondItem="H4s-UO-W17" secondAttribute="leadingMargin" constant="65" id="OvJ-vJ-ZBj"/>
-                                        <constraint firstItem="CPu-xA-lVX" firstAttribute="centerY" secondItem="Tb9-x5-BSQ" secondAttribute="centerY" id="XPC-vx-0y9"/>
                                         <constraint firstItem="CPu-xA-lVX" firstAttribute="leading" secondItem="H4s-UO-W17" secondAttribute="leadingMargin" constant="7" id="cam-3v-O8J"/>
+                                        <constraint firstItem="Tb9-x5-BSQ" firstAttribute="top" secondItem="H4s-UO-W17" secondAttribute="topMargin" constant="22" id="etG-PD-tGI"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Gdb-PX-qcp" secondAttribute="trailing" constant="80" id="fDC-SS-Thi"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Gdb-PX-qcp" secondAttribute="trailing" constant="592" id="frb-Hc-4eU"/>
                                         <constraint firstItem="CPu-xA-lVX" firstAttribute="top" secondItem="H4s-UO-W17" secondAttribute="topMargin" constant="20" id="lCb-9E-hrZ"/>
                                         <constraint firstItem="Gdb-PX-qcp" firstAttribute="leading" secondItem="H4s-UO-W17" secondAttribute="leadingMargin" constant="-8" id="nmw-kf-mEj"/>
-                                        <constraint firstItem="Gdb-PX-qcp" firstAttribute="leading" secondItem="CPu-xA-lVX" secondAttribute="trailing" constant="8" symbolic="YES" id="za1-x2-cXm"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Tb9-x5-BSQ" secondAttribute="trailing" constant="11" id="riv-1o-89z"/>
+                                        <constraint firstItem="Tb9-x5-BSQ" firstAttribute="leading" secondItem="Gdb-PX-qcp" secondAttribute="trailing" constant="8" id="sAd-gl-sCS"/>
+                                        <constraint firstItem="Gdb-PX-qcp" firstAttribute="leading" secondItem="CPu-xA-lVX" secondAttribute="trailing" constant="18" id="za1-x2-cXm"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="N7y-p0-lcg"/>
                                             <exclude reference="OQ3-uq-aRo"/>
+                                            <exclude reference="OvJ-vJ-ZBj"/>
                                             <exclude reference="fDC-SS-Thi"/>
                                             <exclude reference="frb-Hc-4eU"/>
                                             <exclude reference="nmw-kf-mEj"/>
@@ -275,7 +296,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="0fb-NU-qtk"/>
                                                 <constraint firstAttribute="height" constant="40" id="9yh-hi-kmk"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="SOG-kf-cXj"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <state key="normal" image="close-icon.png">
@@ -285,7 +305,6 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="9yh-hi-kmk"/>
-                                                    <exclude reference="SOG-kf-cXj"/>
                                                 </mask>
                                             </variation>
                                         </button>
