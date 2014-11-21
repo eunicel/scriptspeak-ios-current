@@ -57,8 +57,10 @@ class FavoriteViewController: UITableViewController {
     
     //problem: when click play from favorites page but text button, playes, but also adds it to favorite dictations..... should add to history dictactions
     @IBAction func playText(sender: UIButton) {
+        println("play text from favorites");
         let text = textToPlayField.text;
         if(text != ""){
+            let dictation = DictationModel(text:text, usageCount:0);
             // text-to-speech
             var synthesizer = AVSpeechSynthesizer()
             var mySpeechUtterance = AVSpeechUtterance(string:text)
@@ -69,34 +71,61 @@ class FavoriteViewController: UITableViewController {
             //favoritePhrases.append(text);
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
-            var historyPhrases :[NSString] = [];
-            //defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
-            defaults.setObject(historyPhrases, forKey: "historyDictations")
-            historyPhrases.append(text);
-            defaults.synchronize()
+            var historyPhrases :[String]
+            if let array : AnyObject? = defaults.objectForKey("historyDictations") {
+                println(array);
+                if(array != nil){
+                    println("array is not nil");
+                    historyPhrases = array! as [String];
+                    println(historyPhrases);
+                    println("!!");
+                    //defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+                    historyPhrases.append(dictation.getStorageString());
+                    println(historyPhrases);
+                    defaults.setObject(historyPhrases, forKey: "historyDictations")
+                    
+                    defaults.synchronize()
+                    
+                    tableView.reloadData()
+                    textToPlayField.text = "";
+                } else {
+                    println("array is nil");
+                    var historyPhrases = [dictation.getStorageString()];
+                    println(dictation.getStorageString());
+                    defaults.setObject(historyPhrases, forKey:"historyDictations");
+                    defaults.synchronize();
+                    println(historyPhrases);
+                    tableView.reloadData();
+                    textToPlayField.text = "";
+                }
+            }
             
-            tableView.reloadData()
-            textToPlayField.text = "";
         }
         
     }
     
-    var favoritePhrases:[NSString] = [];
+    var favoritePhrases:[String] = [];
 
     @IBOutlet var tapDictationItem: UITapGestureRecognizer!
     
     override func viewDidLoad() {
+        println("view did load favorites");
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.frame = self.view.frame;
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults();
         //read
-        if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [NSString]{
+        println(defaults);
+        if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [String]{
             println("array");
             println (array);
-            favoritePhrases = array! as [NSString]
+            //favoritePhrases :[String] = array! as [String];
+            if(array != nil){
+                favoritePhrases = array! as [String];
+            }
         }
-
+        println(favoritePhrases);
+        println("favorite view loaded successful");
     }
 
     override func didReceiveMemoryWarning() {
@@ -105,39 +134,34 @@ class FavoriteViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoritePhrases.count
+        return favoritePhrases.count;
     }
 
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return footerView.frame.size.height;
     }
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return footerView
+        return footerView;
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let text = favoritePhrases[indexPath.row]
-        var synthesizer = AVSpeechSynthesizer()
-        var mySpeechUtterance = AVSpeechUtterance(string:text)
+        let text = DictationModel(storageString: favoritePhrases[indexPath.row]).text;
+        var synthesizer = AVSpeechSynthesizer();
+        var mySpeechUtterance = AVSpeechUtterance(string:text);
         mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate;
-        synthesizer.speakUtterance(mySpeechUtterance)
+        synthesizer.speakUtterance(mySpeechUtterance);
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        
+        println("favorites setting cell label start");
         let cell = tableView.dequeueReusableCellWithIdentifier("dictationCell") as UITableViewCell;
-        println(cell)
-        
+        println(cell);
         var cellLabel:UILabel = cell.viewWithTag(50) as UILabel;
-        cellLabel.text = favoritePhrases[indexPath.row];
-        
+        cellLabel.text = DictationModel(storageString: favoritePhrases[indexPath.row]).getText();
         var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
-        
-//        deleteButton?.addTarget(self, action: "deleteItemClicked:", forControlEvents: UIControlEvents.TouchDown);
         deleteButton?.addTarget(self, action: "deleteItem:", forControlEvents: UIControlEvents.TouchDown);
-        
-        return cell
+        println("favorites displaying cell done");
+        return cell;
     }
     
     func deleteItemClicked(sender: AnyObject){ //UIBarBUttonItem
@@ -171,12 +195,14 @@ class FavoriteViewController: UITableViewController {
         }
     }
     
-    //code for the save button on the text field..not tested yet
+    //code for the favorite button on the text field
     @IBAction func favoriteTextInput(sender: UIButton) {
-        
+        sender.setImage(UIImage(named:"star-filled.png"), forState:UIControlState.Highlighted); //should change image of star to filled star when pressed
         let text = textToPlayField.text;
+        
         if (text != "") {
-            favoritePhrases.append(text);
+            let dictation = DictationModel(text:text);
+            favoritePhrases.append(dictation.getStorageString());
             
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             //needs to be starred
