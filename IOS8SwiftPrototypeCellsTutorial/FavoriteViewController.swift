@@ -187,7 +187,6 @@ class FavoriteViewController: UITableViewController {
     
     func deleteItem(sender: AnyObject){
         var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
-        println("delete");
         var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
         if (indexPath != nil)
         {
@@ -207,14 +206,19 @@ class FavoriteViewController: UITableViewController {
         
         if (text != "") {
             let dictation = DictationModel(text:text);
-            favoritePhrases.insert(dictation.getStorageString(), atIndex: 0);//(dictation.getStorageString());
-            
+            dictation.favorite()
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            //needs to be starred
 
-            defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
-            
-            defaults.synchronize()
+            if let array : AnyObject? = defaults.objectForKey("historyDictations") as? [String]{
+                var history :[String] = array! as [String];
+                
+                history.insert(dictation.getStorageString(), atIndex: 0);
+                favoritePhrases.insert(dictation.getStorageString(), atIndex: 0);//(dictation.getStorageString());
+                defaults.setObject(history, forKey: "historyDictations");
+                defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
+                defaults.synchronize()
+
+            }
             tableView.reloadData()
             textToPlayField.text = "";
         }

@@ -24,13 +24,9 @@ class HistoryViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.frame = self.view.frame;
-        tableView.rowHeight = UITableViewAutomaticDimension
-        println("height")
-        println(tableView.rowHeight)
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults();
         //read
         if let array : AnyObject? = defaults.objectForKey("historyDictations") {
-            println(array);
             if(array != nil){
                 historyPhrases = array! as [String];
             }
@@ -49,10 +45,7 @@ class HistoryViewController: UITableViewController {
             mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate;
             synthesizer.speakUtterance(mySpeechUtterance);
             historyPhrases.insert(dictation.getStorageString(), atIndex: 0);(dictation.getStorageString());
-            println(dictation.getStorageString());
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-//            defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(historyPhrases), forKey: "historyDictations")
-            println(historyPhrases);
             defaults.setObject(historyPhrases, forKey: "historyDictations")
             defaults.synchronize();
             
@@ -84,8 +77,6 @@ class HistoryViewController: UITableViewController {
     println(indexPath.row);
     var synthesizer = AVSpeechSynthesizer();
     var mySpeechUtterance = AVSpeechUtterance(string:text);
-    println(text);
-    println(historyPhrases);
     mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate;
     synthesizer.speakUtterance(mySpeechUtterance)
   }
@@ -102,10 +93,8 @@ class HistoryViewController: UITableViewController {
     var favButton:UIButton? = cell.contentView.viewWithTag(52) as? UIButton;
     favButton?.addTarget(self, action: "favItem:", forControlEvents: UIControlEvents.TouchDown);
     if(dictation.getFavorite()){
-        println("filled");
         favButton?.setImage(UIImage(named:"star-filled.png"), forState: UIControlState.Normal);
     } else {
-        println("empty");
         favButton?.setImage(UIImage(named:"star-empty.png"), forState: UIControlState.Normal);
     }
     return cell;
@@ -122,10 +111,7 @@ class HistoryViewController: UITableViewController {
 //    }
     
     func deleteItem(sender: AnyObject){
-        var buttonPosition:CGPoint = sender.convertPoint(CGPointMake(5,5), toView: self.tableView);
-        println("delete");
-        println(sender)
-        println(buttonPosition)
+        var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
         var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
         if (indexPath != nil)
         {
@@ -141,47 +127,48 @@ class HistoryViewController: UITableViewController {
     //what happens if someone clicks the fave button twice? how do we make sure the item doesn't get added to the favorites list a second time?
     func favItem(sender: AnyObject){
         sender.setImage(UIImage(named:"star-filled.png"), forState:UIControlState.Normal); //should change image of star to filled star when pressed
-        var buttonPosition:CGPoint = sender.convertPoint(CGPointMake(5,5), toView: self.tableView);
+        var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
         var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
         if (indexPath != nil)
         {
             var currentIndex = indexPath?.row;
-            
-            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            
-            if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [String]{
-                var favorites: [String]
-                if(array != nil){
-                    favorites = array! as [String];
+            let dictation = DictationModel(storageString: historyPhrases[currentIndex!]);
+            if (dictation.getFavorite() == false) {
+                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [String]{
+                    var favorites: [String]
+                    if(array != nil){
+                        favorites = array! as [String];
+                    }
+                    else {
+                        favorites = [historyPhrases[currentIndex!]];
+                    }
+                    dictation.favorite()
+                    favorites.insert(dictation.getStorageString(), atIndex: 0);
+                    defaults.setObject(favorites, forKey: "favoriteDictations");
+                    historyPhrases[currentIndex!] = dictation.getStorageString()
+                    defaults.setObject(historyPhrases, forKey: "historyDictations");
+                    defaults.synchronize();
                 }
-                else {
-                    favorites = [historyPhrases[currentIndex!]];
-                }
-                let dictation = DictationModel(storageString: historyPhrases[currentIndex!]);
-                dictation.favorite()
-                favorites.insert(dictation.getStorageString(), atIndex: 0);
-                defaults.setObject(favorites, forKey: "favoriteDictations");
-                historyPhrases[currentIndex!] = dictation.getStorageString()
-                defaults.setObject(historyPhrases, forKey: "historyDictations");
-                defaults.synchronize();
             }
-            
         }
     }
     
     //saves the text to favorites and clears it from the text field
     @IBAction func favoriteTextInput(sender: AnyObject) {
-        sender.setImage(UIImage(named:"star-filled.png"), forState:UIControlState.Highlighted); //should change image of star to filled star when pressed
+        sender.setImage(UIImage(named:"star-filled.png"), forState:UIControlState.Normal); //should change image of star to filled star when pressed
         let text = textToPlayField.text
         if(text != ""){
             let dictation = DictationModel(text:text);
+            dictation.favorite()
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             //add to fav list
             if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [String]{
-                println(array);
                 var favorites :[String] = array! as [String];
                 favorites.insert(dictation.getStorageString(), atIndex: 0);//(dictation.getStorageString());
-                defaults.setObject(favorites, forKey: "favoriteDictations")
+                historyPhrases.insert(dictation.getStorageString(), atIndex: 0);
+                defaults.setObject(favorites, forKey: "favoriteDictations");
+                defaults.setObject(historyPhrases, forKey: "historyDictations");
             }
             
             defaults.synchronize();
@@ -192,10 +179,6 @@ class HistoryViewController: UITableViewController {
     }
 
     /*
-
-var historyPhrases = ["Hi, my name is Barbara!","Good morning","Good-bye!","I'm hungry.","Good afternoon.","Happy birthday","Yes","No","PPAT is cool","Caravan","asdf","asdfasdf","asdfasdfasdf"]
-
-var favoritePhrases = ["Hello I'm saved"]
 
 @IBAction func sendInputText(sender: UIButton) {
 let text = textToPlayField.text
