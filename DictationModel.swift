@@ -7,7 +7,7 @@ class DictationModel {
     var usageCount: Int;
     var synthesizer:AVSpeechSynthesizer;
     let delim = "||||||||||||";
-    //var favorited: Bool;
+    var favorited: Bool;
     
     init(storageString:String) {
         let tokens = storageString.componentsSeparatedByString(delim);
@@ -19,22 +19,21 @@ class DictationModel {
         var dateFormatter : NSDateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "yyyy-MM-dd  HH:mm:ss.sss";
         self.timeCreated = dateFormatter.dateFromString(tokens[2])!;
-        /*if(tokens[3] == "true"){
-            self.favorited = true;
-        } else if (tokens[3] == "false") {
-            self.favorited = false;
+        
+        if(tokens.count >= 4  ){
+            self.favorited = tokens[3] == "true";
         } else {
             println("error: not favorited or favorited");
             println(tokens[3]);
             self.favorited = false;
-        }*/
+        }
     }
     init(text:String,usageCount:Int) {
         self.synthesizer = AVSpeechSynthesizer();
         self.text = text;
         self.timeCreated = NSDate();
         self.usageCount = usageCount;
-        //self.favorited = false;
+        self.favorited = false;
     }
     convenience init(text:String) {
         self.init(text:text,usageCount:0);
@@ -43,7 +42,7 @@ class DictationModel {
     func incrementUsageCount() {
         usageCount++;
     }
-    /*func getFavorite() -> Bool {
+    func getFavorite() -> Bool {
         return favorited;
     }
     func favorite() {
@@ -51,7 +50,7 @@ class DictationModel {
     }
     func unfavorite() {
         favorited = false;
-    }*/
+    }
     func getText() -> String {
         return text;
     }
@@ -64,8 +63,9 @@ class DictationModel {
         //dateFormatter.dateStyle = dateStyle
         //dateFormatter.timeStyle = timeStyle
         var dateString :String = dateFormatter.stringFromDate(timeCreated);
-        var storageString = self.text+self.delim+String(self.usageCount) + self.delim+dateString;
-        return storageString;
+        var storageString:String = self.text+self.delim+String(self.usageCount);
+        storageString =  storageString+self.delim+dateString+self.delim  ;
+        return storageString+(self.favorited ? "true" : "false");
         
     }
     func play(){

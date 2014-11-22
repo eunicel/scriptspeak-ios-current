@@ -80,7 +80,7 @@ class FavoriteViewController: UITableViewController {
                     println(historyPhrases);
                     println("!!");
                     //defaults.setObject(favoritePhrases, forKey: "favoriteDictations")
-                    historyPhrases.append(dictation.getStorageString());
+                    historyPhrases.insert(dictation.getStorageString(), atIndex: 0); //(dictation.getStorageString());
                     println(historyPhrases);
                     defaults.setObject(historyPhrases, forKey: "historyDictations")
                     
@@ -113,6 +113,8 @@ class FavoriteViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.frame = self.view.frame;
+//        tableView.rowHeight = UITableViewAutomaticDimension
+
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults();
         //read
         println(defaults);
@@ -145,7 +147,10 @@ class FavoriteViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let text = DictationModel(storageString: favoritePhrases[indexPath.row]).text;
+        var dictation = DictationModel(storageString: favoritePhrases[indexPath.row]);
+        let text = dictation.text;
+        dictation.incrementUsageCount();
+        favoritePhrases[indexPath.row] = dictation.getStorageString();
         var synthesizer = AVSpeechSynthesizer();
         var mySpeechUtterance = AVSpeechUtterance(string:text);
         mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate;
@@ -158,7 +163,7 @@ class FavoriteViewController: UITableViewController {
         println(cell);
         var cellLabel:UILabel = cell.viewWithTag(50) as UILabel;
         cellLabel.text = DictationModel(storageString: favoritePhrases[indexPath.row]).getText();
-        var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
+        var deleteButton:UIButton? = cell.contentView.viewWithTag(51) as? UIButton;
         deleteButton?.addTarget(self, action: "deleteItem:", forControlEvents: UIControlEvents.TouchDown);
         println("favorites displaying cell done");
         return cell;
@@ -202,7 +207,7 @@ class FavoriteViewController: UITableViewController {
         
         if (text != "") {
             let dictation = DictationModel(text:text);
-            favoritePhrases.append(dictation.getStorageString());
+            favoritePhrases.insert(dictation.getStorageString(), atIndex: 0);//(dictation.getStorageString());
             
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             //needs to be starred

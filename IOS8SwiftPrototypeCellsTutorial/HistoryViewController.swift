@@ -24,6 +24,9 @@ class HistoryViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.frame = self.view.frame;
+        tableView.rowHeight = UITableViewAutomaticDimension
+        println("height")
+        println(tableView.rowHeight)
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults();
         //read
         if let array : AnyObject? = defaults.objectForKey("historyDictations") {
@@ -45,7 +48,7 @@ class HistoryViewController: UITableViewController {
             var mySpeechUtterance = AVSpeechUtterance(string:text);
             mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate;
             synthesizer.speakUtterance(mySpeechUtterance);
-            historyPhrases.append(dictation.getStorageString());
+            historyPhrases.insert(dictation.getStorageString(), atIndex: 0);(dictation.getStorageString());
             println(dictation.getStorageString());
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
 //            defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(historyPhrases), forKey: "historyDictations")
@@ -75,6 +78,8 @@ class HistoryViewController: UITableViewController {
   }
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let dictation = DictationModel(storageString: historyPhrases[indexPath.row])
+    dictation.incrementUsageCount();
+    historyPhrases[indexPath.row] = dictation.getStorageString();
     let text = dictation.text;
     println(indexPath.row);
     var synthesizer = AVSpeechSynthesizer();
@@ -85,29 +90,24 @@ class HistoryViewController: UITableViewController {
     synthesizer.speakUtterance(mySpeechUtterance)
   }
     
+    
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     println("history setting cell label start");
     let cell = tableView.dequeueReusableCellWithIdentifier("dictationCell") as UITableViewCell;
-    println(cell);
     var cellLabel:UILabel = cell.viewWithTag(50) as UILabel;
     var dictation = DictationModel(storageString:historyPhrases[indexPath.row]);
     cellLabel.text = dictation.getText();
-    
-    var deleteButton:UIButton? = self.view.viewWithTag(51) as? UIButton;
+    var deleteButton:UIButton? = cell.contentView.viewWithTag(51) as? UIButton;
     deleteButton?.addTarget(self, action: "deleteItem:", forControlEvents: UIControlEvents.TouchDown);
-    
-    var favButton:UIButton? = self.view.viewWithTag(52) as? UIButton;
+    var favButton:UIButton? = cell.contentView.viewWithTag(52) as? UIButton;
     favButton?.addTarget(self, action: "favItem:", forControlEvents: UIControlEvents.TouchDown);
-    println("done displaying cell");
-    println("setting star color");
-    /*println(dictation.getFavorite());
     if(dictation.getFavorite()){
         println("filled");
         favButton?.setImage(UIImage(named:"star-filled.png"), forState: UIControlState.Normal);
     } else {
         println("empty");
-            favButton?.setImage(UIImage(named:"star-empty.png"), forState: UIControlState.Normal);
-    }*/
+        favButton?.setImage(UIImage(named:"star-empty.png"), forState: UIControlState.Normal);
+    }
     return cell;
   }
     
@@ -122,8 +122,10 @@ class HistoryViewController: UITableViewController {
 //    }
     
     func deleteItem(sender: AnyObject){
-        var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
+        var buttonPosition:CGPoint = sender.convertPoint(CGPointMake(5,5), toView: self.tableView);
         println("delete");
+        println(sender)
+        println(buttonPosition)
         var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
         if (indexPath != nil)
         {
@@ -138,41 +140,30 @@ class HistoryViewController: UITableViewController {
     
     //what happens if someone clicks the fave button twice? how do we make sure the item doesn't get added to the favorites list a second time?
     func favItem(sender: AnyObject){
-        println("favitem clicked on history page");
         sender.setImage(UIImage(named:"star-filled.png"), forState:UIControlState.Normal); //should change image of star to filled star when pressed
-        var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
+        var buttonPosition:CGPoint = sender.convertPoint(CGPointMake(5,5), toView: self.tableView);
         var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);
         if (indexPath != nil)
         {
-            println("index path not nil");
             var currentIndex = indexPath?.row;
-            println( currentIndex);
             
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(historyPhrases, forKey: "historyDictations")
-            println(defaults);
-            println(historyPhrases);
             
             if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [String]{
-                println(array);
+                var favorites: [String]
                 if(array != nil){
-                    var favorites :[String] = array! as [String];
-                    let dictation = DictationModel(storageString: historyPhrases[currentIndex!]);
-                    favorites.append(dictation.getStorageString());
-                    defaults.setObject(favorites, forKey: "favoriteDictations");
-                    defaults.synchronize();
-                    println(defaults.objectForKey("favoriteDictations"));
-                    //tableView.reloadData();
-                }else{ //will never get here...empty array still goes above
-                    println("array is nil");
-                    //var favorites :[String] = array! as [String];
-                    println(historyPhrases[currentIndex!]);
-                    var favorites : [String] = [historyPhrases[currentIndex!]];
-                    defaults.setObject(favorites, forKey: "favoriteDictations");
-                    println(defaults.objectForKey("favoriteDictations"));
-                    defaults.synchronize();
-                    //tableView.reloadData();
+                    favorites = array! as [String];
                 }
+                else {
+                    favorites = [historyPhrases[currentIndex!]];
+                }
+                let dictation = DictationModel(storageString: historyPhrases[currentIndex!]);
+                dictation.favorite()
+                favorites.insert(dictation.getStorageString(), atIndex: 0);
+                defaults.setObject(favorites, forKey: "favoriteDictations");
+                historyPhrases[currentIndex!] = dictation.getStorageString()
+                defaults.setObject(historyPhrases, forKey: "historyDictations");
+                defaults.synchronize();
             }
             
         }
@@ -189,7 +180,7 @@ class HistoryViewController: UITableViewController {
             if let array : AnyObject? = defaults.objectForKey("favoriteDictations") as? [String]{
                 println(array);
                 var favorites :[String] = array! as [String];
-                favorites.append(dictation.getStorageString());
+                favorites.insert(dictation.getStorageString(), atIndex: 0);//(dictation.getStorageString());
                 defaults.setObject(favorites, forKey: "favoriteDictations")
             }
             
