@@ -38,7 +38,6 @@ class HistoryViewController: UITableViewController {
         println("play text start");
         let text = textToPlayField.text
         if(text != ""){
-            println(text);
             var dictation = DictationModel(text:text);
             var synthesizer = AVSpeechSynthesizer();
             var mySpeechUtterance = AVSpeechUtterance(string:text);
@@ -74,7 +73,6 @@ class HistoryViewController: UITableViewController {
     dictation.incrementUsageCount();
     historyPhrases[indexPath.row] = dictation.getStorageString();
     let text = dictation.text;
-    println(indexPath.row);
     var synthesizer = AVSpeechSynthesizer();
     var mySpeechUtterance = AVSpeechUtterance(string:text);
     mySpeechUtterance.rate = AVSpeechUtteranceMinimumSpeechRate;
@@ -89,7 +87,7 @@ class HistoryViewController: UITableViewController {
     var dictation = DictationModel(storageString:historyPhrases[indexPath.row]);
     cellLabel.text = dictation.getText();
     var deleteButton:UIButton? = cell.contentView.viewWithTag(51) as? UIButton;
-    deleteButton?.addTarget(self, action: "deleteItem:", forControlEvents: UIControlEvents.TouchDown);
+    deleteButton?.addTarget(self, action: "deleteItemClicked:", forControlEvents: UIControlEvents.TouchDown);
     var favButton:UIButton? = cell.contentView.viewWithTag(52) as? UIButton;
     favButton?.addTarget(self, action: "favItem:", forControlEvents: UIControlEvents.TouchDown);
     if(dictation.getFavorite()){
@@ -110,6 +108,24 @@ class HistoryViewController: UITableViewController {
 //        self.view.layoutSubviews();
 //    }
     
+    func deleteItemClicked(sender: AnyObject){ //UIBarBUttonItem
+        let alertController = UIAlertController(title: "Delete Item?",message:"",preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action : UIAlertAction!) in
+            self.deleteItem(sender);
+        });// DeleteEntered);
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil);
+        
+        // Add the actions
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        // Present the controller
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+
     func deleteItem(sender: AnyObject){
         var buttonPosition:CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView);
         var indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition);

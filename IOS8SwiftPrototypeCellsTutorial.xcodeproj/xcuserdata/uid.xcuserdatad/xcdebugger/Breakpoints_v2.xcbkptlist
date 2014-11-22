@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IOS8SwiftPrototypeCellsTutorial/FavoriteViewController.swift"
-            timestampString = "438139273.662462"
+            timestampString = "438375060.75729"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "addBarButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IOS8SwiftPrototypeCellsTutorial/FavoriteViewController.swift"
-            timestampString = "438139273.662462"
+            timestampString = "438375060.75729"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "addBarButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
