@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IOS8SwiftPrototypeCellsTutorial/FavoriteViewController.swift"
-            timestampString = "438375060.75729"
+            timestampString = "438463053.639618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "addBarButtonClicked(_:)"
-            landmarkType = "5">
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "FavoriteViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IOS8SwiftPrototypeCellsTutorial/FavoriteViewController.swift"
-            timestampString = "438375060.75729"
+            timestampString = "438463053.639618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "addBarButtonClicked(_:)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DictationModel.swift"
-            timestampString = "438298819.261625"
+            timestampString = "438462061.011102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "getStorageString()"
             landmarkType = "5">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DictationModel.swift"
-            timestampString = "438298857.288476"
+            timestampString = "438462061.011102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "init(storageString:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DictationModel.swift"
-            timestampString = "438298921.381184"
+            timestampString = "438462061.011102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
             landmarkName = "init(storageString:)"
             landmarkType = "5">
          </BreakpointContent>

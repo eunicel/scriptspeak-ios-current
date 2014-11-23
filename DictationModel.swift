@@ -11,8 +11,6 @@ class DictationModel {
     
     init(storageString:String) {
         let tokens = storageString.componentsSeparatedByString(delim);
-        println("tokens");
-        println(tokens);
         self.synthesizer = AVSpeechSynthesizer();
         self.text = tokens[0];
         self.usageCount = tokens[1].toInt()!;

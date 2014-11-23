@@ -28,6 +28,7 @@
                                     </state>
                                     <connections>
                                         <action selector="playText:" destination="Gvl-ii-4uU" eventType="touchDown" id="hFF-bx-YPN"/>
+                                        <segue destination="bOX-V1-9h5" kind="presentation" identifier="inputModal" id="muY-h5-IVh"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDg-Eg-viW">
@@ -152,6 +153,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="bOX-V1-9h5" kind="presentation" identifier="phraseModal" id="8Zn-y4-Inq"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -176,6 +180,55 @@
                 <navigationItem title="History" id="XzA-bd-w7C"/>
             </objects>
             <point key="canvasLocation" x="-620" y="2146"/>
+        </scene>
+        <!--Phrase Popover Controller-->
+        <scene sceneID="ybj-ba-Tme">
+            <objects>
+                <viewController id="bOX-V1-9h5" customClass="PhrasePopoverController" customModule="IOS8SwiftPrototypeCellsTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wSU-v8-dPR"/>
+                        <viewControllerLayoutGuide type="bottom" id="jby-6s-ISK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OZ2-0d-PIQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p50-QD-763">
+                                <rect key="frame" x="232" y="408" width="30" height="30"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playText:" destination="bOX-V1-9h5" eventType="touchDown" id="CPn-ik-gup"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLp-F3-mW5">
+                                <rect key="frame" x="137" y="399" width="37" height="30"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissModal:" destination="bOX-V1-9h5" eventType="touchDown" id="2Wi-qF-nd4"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efM-JH-1Zd">
+                                <rect key="frame" x="90" y="149" width="428" height="251"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="dismissButton" destination="QLp-F3-mW5" id="Tz0-8m-Jbg"/>
+                        <outlet property="myLabel" destination="efM-JH-1Zd" id="egv-kD-cNr"/>
+                        <outlet property="playButton" destination="p50-QD-763" id="rwi-zo-dQf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pht-JU-6ac" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-98" y="2677"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EKD-ZD-1cM">
@@ -218,6 +271,7 @@
                                     </state>
                                     <connections>
                                         <action selector="playText:" destination="3km-Gz-AsR" eventType="touchDown" id="y5i-Af-P3b"/>
+                                        <segue destination="bOX-V1-9h5" kind="presentation" identifier="inputModal2" id="Xwx-cL-qPM"/>
                                     </connections>
                                 </button>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Say something..." textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="gwl-mO-lyn">
@@ -339,6 +393,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="bOX-V1-9h5" kind="presentation" identifier="phraseModal2" id="5Ed-vc-eLN"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -376,7 +433,8 @@
         <image name="star-empty.png" width="124" height="118"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Frf-no-2Vz"/>
         <segue reference="guj-pY-AAq"/>
+        <segue reference="Frf-no-2Vz"/>
+        <segue reference="Xwx-cL-qPM"/>
     </inferredMetricsTieBreakers>
 </document>
