@@ -108,6 +108,7 @@ class FavoriteViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.barTintColor = UIColor.yellowColor();
         // Do any additional setup after loading the view, typically from a nib.
         tableView.frame = self.view.frame;
 

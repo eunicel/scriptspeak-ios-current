@@ -193,17 +193,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p50-QD-763">
-                                <rect key="frame" x="232" y="408" width="30" height="30"/>
-                                <state key="normal" title="Play">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="playText:" destination="bOX-V1-9h5" eventType="touchDown" id="CPn-ik-gup"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLp-F3-mW5">
-                                <rect key="frame" x="137" y="399" width="37" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLp-F3-mW5">
+                                <rect key="frame" x="51" y="508" width="61" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -212,13 +204,27 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efM-JH-1Zd">
-                                <rect key="frame" x="90" y="149" width="428" height="251"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="51" y="28" width="498" height="445"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p50-QD-763">
+                                <rect key="frame" x="498" y="508" width="51" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playText:" destination="bOX-V1-9h5" eventType="touchDown" id="CPn-ik-gup"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QLp-F3-mW5" firstAttribute="leading" secondItem="OZ2-0d-PIQ" secondAttribute="leadingMargin" constant="35" id="ZnV-xM-Yaa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="p50-QD-763" secondAttribute="trailing" constant="35" id="ufI-j3-N6X"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="dismissButton" destination="QLp-F3-mW5" id="Tz0-8m-Jbg"/>
@@ -404,7 +410,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="Vgj-oV-qUJ"/>
-                    <navigationItem key="navigationItem" title="Favorite" id="tn2-xq-eFA">
+                    <navigationItem key="navigationItem" title="Favorites" id="tn2-xq-eFA">
                         <barButtonItem key="leftBarButtonItem" title="History" id="zML-CE-pU7">
                             <connections>
                                 <segue destination="Gvl-ii-4uU" kind="show" id="guj-pY-AAq"/>
