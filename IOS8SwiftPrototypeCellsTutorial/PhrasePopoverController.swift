@@ -18,7 +18,7 @@ class PhrasePopoverController: UIViewController {
     override func viewDidLoad() {
         println("loadingggg")
         super.viewDidLoad()
-        myLabel.text = phraseText
+        myLabel.text = phraseText;
 
     }
     
